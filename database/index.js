@@ -1,25 +1,30 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/similar');
 
-let SimilarListingsSchema = mongoose.Schema({
-	id: {type: Number, index: {unique: true}},
-	title: String,
-	picture: String,
+let ListingSchema = mongoose.Schema({
+  id: {type: Number, index: {unique: true}},
+  title: String,
+  picture: String,
   houseType: String,
   beds: Number,
   cost: Number,
   stars: Number,
   ratings: Number,
+  ListSchema: [Number]
 });
 
-let ListsSchema = mongoose.Schema({
+let ListSchema = mongoose.Schema({
   id: {type: Number, index: {unique: true}},
   name: String,
   liked: Boolean
 });
 
-let SimilarListings = mongoose.model('SimilarListings', SimilarListingsSchema);
-let Lists = mongoose.model('SimilarListings', SimilarListingsSchema);
+let Listing = mongoose.model('Listing', ListingSchema);
+let List = mongoose.model('List', ListSchema);
+
+const findListing = function(id, callback) {
+  Listing.find((err, listing) => {console.log(listing)})
+}
 
 const addList = function() {
 
@@ -41,3 +46,4 @@ module.exports.like = like;
 module.exports.unLike = unLike;
 module.exports.addList = addList;
 module.exports.removeList = removeList;
+module.exports.findListing = findListing;
