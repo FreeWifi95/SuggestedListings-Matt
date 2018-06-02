@@ -5,13 +5,17 @@ const app = express();
 
 app.use(express.static('client/dist'));
 
-app.post('like', (res ,req) => {
+app.get('/list', (req, res) => {
+  db.findListing((listing) => { res.end(listing); });
+});
 
-}); 
+app.post('like', (req, res) => {
+  res.end();
+});
 
-app.post('list', (res, req) => {
-  
-})
+app.post('list', (req, res) => {
+  res.end();
+});
 
-var port = 3057;
-app.listen(port, () => console.log('listening on ' + port));
+const port = 3009;
+app.listen(port, () => console.log(`listening on ${port}`));
