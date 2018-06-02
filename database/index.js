@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+
 mongoose.connect('mongodb://localhost:27017/similar');
 
-let ListingSchema = mongoose.Schema({
-  id: {type: Number, index: {unique: true}},
+const ListingSchema = mongoose.Schema({
+  id: { type: Number, index: { unique: true } },
   title: String,
   picture: String,
   houseType: String,
@@ -10,37 +11,37 @@ let ListingSchema = mongoose.Schema({
   cost: Number,
   stars: Number,
   ratings: Number,
-  ListSchema: [Number]
+  ListSchema: [Number],
 });
 
-let ListSchema = mongoose.Schema({
-  id: {type: Number, index: {unique: true}},
+const ListSchema = mongoose.Schema({
+  id: { type: Number, index: { unique: true } },
   name: String,
-  liked: Boolean
+  liked: Boolean,
 });
 
-let Listing = mongoose.model('Listing', ListingSchema);
-let List = mongoose.model('List', ListSchema);
+const Listing = mongoose.model('Listing', ListingSchema);
+const List = mongoose.model('List', ListSchema);
 
-const findListing = function(id, callback) {
-  Listing.find((err, listing) => {console.log(listing)})
-}
+const findListing = (id, callback) => {
+  Listing.find((err, listing) => callback(listing));
+};
 
-const addList = function() {
+const addList = function () {
 
-}
+};
 
-const removeList = function() {
+const removeList = function () {
 
-}
+};
 
-const like = function() {
+const like = function () {
 
-}
+};
 
-const unLike = function() {
+const unLike = function () {
 
-}
+};
 
 module.exports.like = like;
 module.exports.unLike = unLike;
