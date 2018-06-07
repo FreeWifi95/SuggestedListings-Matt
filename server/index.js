@@ -6,7 +6,7 @@ const app = express();
 app.use(express.static('client/dist'));
 
 app.get('/list', (req, res) => {
-  db.findListing((listing) => { res.end(listing); });
+  db.findListing((listing) => { res.end(JSON.stringify(listing)); });
 });
 
 app.post('like', (req, res) => {

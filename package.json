@@ -18,9 +18,11 @@
     "express": "^4.15.4",
     "jquery": "^3.2.1",
     "mongoose": "^4.11.6",
+    "mysql": "^2.4.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "webpack": "^2.7.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",

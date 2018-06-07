@@ -23,8 +23,14 @@ const ListSchema = mongoose.Schema({
 const Listing = mongoose.model('Listing', ListingSchema);
 const List = mongoose.model('List', ListSchema);
 
-const findListing = (id, callback) => {
-  Listing.find((err, listing) => callback(listing));
+const findListing = (callback) => {
+  Listing.find((err, listing) => {
+    if (err) {
+      console.log(err);
+    } else {
+      callback(listing);
+    }
+  });
 };
 
 const addList = function () {
