@@ -1,36 +1,11 @@
-const mongoose = require('mongoose');
+const mysql = require('mysql');
 
-mongoose.connect('mongodb://localhost:27017/similar');
+const connection = mysql.createConnection({ user: 'root', database: 'similar' });
 
-const ListingSchema = mongoose.Schema({
-  id: { type: Number, index: { unique: true } },
-  title: String,
-  picture: String,
-  houseType: String,
-  beds: Number,
-  cost: Number,
-  stars: Number,
-  ratings: Number,
-  ListSchema: [Number],
-});
-
-const ListSchema = mongoose.Schema({
-  id: { type: Number, index: { unique: true } },
-  name: String,
-  liked: Boolean,
-});
-
-const Listing = mongoose.model('Listing', ListingSchema);
-const List = mongoose.model('List', ListSchema);
+connection.connect(function (err) {});
 
 const findListing = (callback) => {
-  Listing.find((err, listing) => {
-    if (err) {
-      console.log(err);
-    } else {
-      callback(listing);
-    }
-  });
+  connection.query('select * from listings where id in (17, 19, 79)', (err, result) => { callback(result); });
 };
 
 const addList = function () {

@@ -33,21 +33,24 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        Similar Listings
-        {this.state.data.map(listing => <Listing listing={listing} />)}
+      <div id="container">
+        <h1> Similar listings </h1>
+        <div>
+          {this.state.data.map(listing => <Listing listing={listing} />)}
+        </div>
       </div>
     );
   }
 }
 
 const Listing = props => (
-  <div>
-    <div> {props.listing.title} </div>
-    <div> {props.listing.houseType} </div>
-    <img src="https://i.imgur.com/LRoLTlK.jpg" alt="" width="200" height="250" />
+  <div className="listing">
+    <img src={props.listing.picture} alt="" width="316" height="210" />
+    <div className="type"> {props.listing.houseType} - {props.listing.beds} BEDS</div>
+    <div className="title"> {props.listing.title} </div>
+    <div className="cost"> ${props.listing.cost} per night</div>
+    <div className="rating"> {props.listing.stars} stars * {props.listing.rating} reviews </div>
   </div>
-
 );
 
 export default App;
