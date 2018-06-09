@@ -7,6 +7,7 @@ class App extends React.Component {
     this.state = {
       data: [],
       slide: 0,
+      heart: false,
     };
   }
 
@@ -56,6 +57,12 @@ class App extends React.Component {
     }
   }
 
+  toggleHeart() {
+    this.setState({
+      heart: !this.state.heart,
+    });
+  }
+
   render() {
     return (
       <div id="wrapper">
@@ -63,7 +70,11 @@ class App extends React.Component {
         <div id="container">
           <h1> Similar listings </h1>
           <div id="slides">
-            {this.state.data.map(listing => <Listing listing={listing} />)}
+            {this.state.data.map(listing => (<Listing 
+              listing={listing} 
+              heart={this.state.heart}
+              toggleHeart={this.toggleHeart.bind(this)}
+            />))}
           </div>
         </div>
         <img src="rightArrow.png" alt="" id="right" onClick={this.slideRight.bind(this)}/>
@@ -73,12 +84,16 @@ class App extends React.Component {
 }
 
 const Listing = props => (
-  <div className="listing">
-    <img src={props.listing.picture} alt="" width="334" height="222" />
+  <div className="listing">  
+    <div>
+      <img src={props.listing.picture} alt="" width="334" height="222" />
+    </div>
     <div className="type"> {props.listing.houseType.toUpperCase()} · {props.listing.beds} BEDS</div>
     <div className="title"> {props.listing.title} </div>
     <div className="cost"> ${props.listing.cost} per night</div>
     <div className="rating"> {props.listing.stars} stars · {props.listing.rating} reviews </div>
+    {props.heart && <img src="heartFull.png" alt="" className="heart" width="30" height="30" onClick={props.toggleHeart} />}
+    {!props.heart && <img src="heartOutline.png" alt="" className="heart" width="30" height="30" onClick={props.toggleHeart} />}
   </div>
 );
 
