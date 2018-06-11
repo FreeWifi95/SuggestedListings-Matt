@@ -1,5 +1,5 @@
 import React from 'react';
-import Listing from './listing.jsx'
+import Listing from './Listing.jsx';
 import $ from 'jquery';
 
 class App extends React.Component {
