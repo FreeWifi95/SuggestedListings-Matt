@@ -8,6 +8,8 @@ class App extends React.Component {
     this.state = {
       data: [],
       slide: 0,
+      visibilityLeft: 'hidden',
+      visibilityRight: 'visible',
     };
   }
 
@@ -45,15 +47,23 @@ class App extends React.Component {
   checkCarousel() {
     console.log(this.state.slide);
     if (this.state.slide < 1) {
-      $('#left').css("visibility", "hidden");
+      this.setState({
+        visibilityLeft: 'hidden',
+      });
     } else {
-      $('#left').css("visibility", "visible");
+      this.setState({
+        visibilityLeft: 'visible',
+      });
     }
 
     if (this.state.slide < 9) {
-      $('#right').css("visibility", "visible");
+      this.setState({
+        visibilityRight: 'visible',
+      });
     } else {
-      $('#right').css("visibility", "hidden");
+      this.setState({
+        visibilityRight: 'hidden',
+      });
     }
   }
 
@@ -70,7 +80,7 @@ class App extends React.Component {
   render() {
     return (
       <div id="wrapper">
-        <img src="leftArrow.png" alt="" id="left" onClick={this.slideLeft.bind(this)} />
+        <img src="leftArrow.png" alt="" id="left" onClick={this.slideLeft.bind(this)} className={this.state.visibilityLeft}/>
         <div id="container">
           <h1> Similar listings </h1>
           <div id="slides">
@@ -80,7 +90,7 @@ class App extends React.Component {
             />))}
           </div>
         </div>
-        <img src="rightArrow.png" alt="" id="right" onClick={this.slideRight.bind(this)}/>
+        <img src="rightArrow.png" alt="" id="right" onClick={this.slideRight.bind(this)} className={this.state.visibilityRight}/>
       </div>
     );
   }
