@@ -1,6 +1,6 @@
 import React from 'react';
-import Listing from './Listing.jsx';
 import $ from 'jquery';
+import Listing from './Listing.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -45,26 +45,14 @@ class App extends React.Component {
   }
 
   checkCarousel() {
-    console.log(this.state.slide);
-    if (this.state.slide < 1) {
-      this.setState({
-        visibilityLeft: 'hidden',
-      });
-    } else {
-      this.setState({
-        visibilityLeft: 'visible',
-      });
-    }
+    this.state.slide < 1 ? this.toggleShow('Left', 'hidden') : this.toggleShow('Left', 'visible');
+    this.state.slide < 9 ? this.toggleShow('Right', 'visible') : this.toggleShow('Right', 'hidden');
+  }
 
-    if (this.state.slide < 9) {
-      this.setState({
-        visibilityRight: 'visible',
-      });
-    } else {
-      this.setState({
-        visibilityRight: 'hidden',
-      });
-    }
+  toggleShow(dir, visibility) {
+    this.setState({
+      [`visibility${dir}`]: visibility,
+    });
   }
 
   toggleLike(id) {
