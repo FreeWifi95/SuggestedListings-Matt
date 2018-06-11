@@ -16,12 +16,16 @@ const removeList = function () {
 
 };
 
-const toggleLike = function (id) {
-  console.log('test ', id);
+const checkLiked = (id, callback) => {
+  connection.query('select liked from listings where id = ' + id + ';', (err, result) => { callback(result[0].liked); });
+};
+
+const toggleLike = (id) => {
   connection.query('update listings set liked = !liked where id = ' + id + ';', (err, result) => { });
 };
 
 module.exports.toggleLike = toggleLike;
+module.exports.checkLiked = checkLiked;
 module.exports.addList = addList;
 module.exports.removeList = removeList;
 module.exports.findListing = findListing;

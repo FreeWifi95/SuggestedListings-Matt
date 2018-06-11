@@ -1,4 +1,5 @@
 import React from 'react';
+import Listing from './listing.jsx'
 import $ from 'jquery';
 
 class App extends React.Component {
@@ -7,7 +8,6 @@ class App extends React.Component {
     this.state = {
       data: [],
       slide: 0,
-      heart: false,
     };
   }
 
@@ -57,9 +57,13 @@ class App extends React.Component {
     }
   }
 
-  toggleHeart() {
-    this.setState({
-      heart: !this.state.heart,
+  toggleLike(id) {
+    $.ajax({
+      method: 'POST',
+      url: '/like',
+      data: { data: id },
+      success: () => console.log('toggled like'),
+      err: () => console.log('there was an error'),
     });
   }
 
@@ -70,10 +74,9 @@ class App extends React.Component {
         <div id="container">
           <h1> Similar listings </h1>
           <div id="slides">
-            {this.state.data.map(listing => (<Listing 
-              listing={listing} 
-              heart={this.state.heart}
-              toggleHeart={this.toggleHeart.bind(this)}
+            {this.state.data.map(listing => (<Listing
+              listing={listing}
+              toggleLike={this.toggleLike.bind(this)}
             />))}
           </div>
         </div>
@@ -82,19 +85,5 @@ class App extends React.Component {
     );
   }
 }
-
-const Listing = props => (
-  <div className="listing">  
-    <div>
-      <img src={props.listing.picture} alt="" width="334" height="222" />
-    </div>
-    <div className="type"> {props.listing.houseType.toUpperCase()} · {props.listing.beds} BEDS</div>
-    <div className="title"> {props.listing.title} </div>
-    <div className="cost"> ${props.listing.cost} per night</div>
-    <div className="rating"> {props.listing.stars} stars · {props.listing.rating} reviews </div>
-    {props.heart && <img src="heartFull.png" alt="" className="heart" width="30" height="30" onClick={props.toggleHeart} />}
-    {!props.heart && <img src="heartOutline.png" alt="" className="heart" width="30" height="30" onClick={props.toggleHeart} />}
-  </div>
-);
 
 export default App;
