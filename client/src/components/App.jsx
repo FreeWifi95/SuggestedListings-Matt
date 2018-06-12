@@ -10,21 +10,55 @@ class App extends React.Component {
       slide: 0,
       visibilityLeft: 'hidden',
       visibilityRight: 'visible',
+      lists: [{ id: 1, name: '' }],
+      lists2listings: [{listId: 0, listingId: 0}],
     };
   }
 
   componentDidMount() {
     this.getListings();
     this.checkCarousel();
+    this.getLists();
   }
 
   getListings() {
     $.ajax({
       method: 'GET',
-      url: '/list',
+      url: '/listing',
       success: (res) => {
         this.setState({
           data: JSON.parse(res),
+        }, this.getLists2Listings);
+      },
+    });
+  }
+
+  getLists() {
+    $.ajax({
+      method: 'GET',
+      url: '/lists',
+      success: (res) => {
+        console.log(JSON.parse(res));
+        this.setState({
+          lists: JSON.parse(res),
+        });
+      },
+    });
+  }
+
+  getLists2Listings() {
+    const listingIds = this.state.data.map((listing) => listing.id);
+    console.log(listingIds);
+
+    $.ajax({
+      method: 'GET',
+      url: '/lists2listings',
+      data: {
+        listingIds: listingIds,
+      },
+      success: (res) => {
+        this.setState({
+          lists2listings: JSON.parse(res)
         });
       },
     });
@@ -75,6 +109,8 @@ class App extends React.Component {
             {this.state.data.map(listing => (<Listing
               listing={listing}
               toggleLike={this.toggleLike.bind(this)}
+              lists={this.state.lists}
+              lists2listings={this.state.lists2listings}
             />))}
           </div>
         </div>

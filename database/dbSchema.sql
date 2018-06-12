@@ -29,6 +29,10 @@ CREATE TABLE lists2listings (
   PRIMARY KEY (listingId, listId)
 );
 
+insert into lists(id, name) values (1, 'Dream Homes');
+insert into lists(id, name) values (2, 'Vacation Places');
+insert into lists(id, name) values (3, 'Mobile Starred Listings');
+
 insert into listings (id, title, picture, houseType, beds, cost, stars, rating, liked) values (1, 'Multi-layered 24/7 methodology', 'https://s3-us-west-1.amazonaws.com/sharebnbphotos/house_photo_200.jpg', 'Safari', 3, 103, 4, 140, false);
 insert into listings (id, title, picture, houseType, beds, cost, stars, rating, liked) values (2, 'Business-focused explicit infrastructure', 'https://s3-us-west-1.amazonaws.com/sharebnbphotos/house_photo_201.jpg', 'VUE', 3, 185, 3, 66, false);
 insert into listings (id, title, picture, houseType, beds, cost, stars, rating, liked) values (3, 'Streamlined 24 hour approach', 'https://s3-us-west-1.amazonaws.com/sharebnbphotos/house_photo_202.jpg', 'Thunderbird', 4, 112, 4, 124, false);
