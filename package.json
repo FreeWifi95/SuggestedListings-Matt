@@ -1,9 +1,8 @@
 {
-  "name": "Airbnb",
+  "name": "suggested-listings",
   "version": "1.0.0",
   "description": "",
   "author": "Matt Strom",
-  "license": "",
   "engines": {
     "node": ">=6.13.0"
   },
@@ -13,6 +12,7 @@
     "dbInit": "node initDatabase.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "express": "^4.15.4",

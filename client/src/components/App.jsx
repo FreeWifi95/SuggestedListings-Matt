@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import Listing from './Listing.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,8 +12,11 @@ class App extends React.Component {
       visibilityLeft: 'hidden',
       visibilityRight: 'visible',
       lists: [{ id: 1, name: '' }],
-      lists2listings: [{listId: 0, listingId: 0}],
+      lists2listings: [{ listId: 0, listingId: 0 }],
     };
+    this.slideLeft = this.slideLeft.bind(this);
+    this.slideRight = this.slideRight.bind(this);
+    this.toggleLike = this.toggleLike.bind(this);
   }
 
   componentDidMount() {
@@ -22,46 +26,29 @@ class App extends React.Component {
   }
 
   getListings() {
-    $.ajax({
-      method: 'GET',
-      url: '/listing',
-      success: (res) => {
-        this.setState({
-          data: JSON.parse(res),
-        }, this.getLists2Listings);
-      },
+    axios.get('/listing').then((res) => {
+      this.setState({
+        data: res.data,
+      }, this.getLists2Listings);
     });
   }
 
   getLists() {
-    $.ajax({
-      method: 'GET',
-      url: '/lists',
-      success: (res) => {
-        console.log(JSON.parse(res));
-        this.setState({
-          lists: JSON.parse(res),
-        });
-      },
+    axios.get('/lists').then((res) => {
+      this.setState({
+        lists: res.data,
+      });
     });
   }
 
   getLists2Listings() {
-    const listingIds = this.state.data.map((listing) => listing.id);
-    console.log(listingIds);
-
-    $.ajax({
-      method: 'GET',
-      url: '/lists2listings',
-      data: {
-        listingIds: listingIds,
-      },
-      success: (res) => {
+    const listingIds = this.state.data.map(listing => listing.id);
+    axios.get('/lists2listings', { params: { listingIds } })
+      .then((res) => {
         this.setState({
-          lists2listings: JSON.parse(res)
+          lists2listings: res.data,
         });
-      },
-    });
+      });
   }
 
   slideRight() {
@@ -102,19 +89,19 @@ class App extends React.Component {
   render() {
     return (
       <div id="wrapper">
-        <img src="leftArrow.png" alt="" id="left" onClick={this.slideLeft.bind(this)} className={this.state.visibilityLeft}/>
+        <button type="img" src="leftArrow.png" id="left" onClick={this.slideLeft} className={this.state.visibilityLeft} />
         <div id="container">
           <h1> Similar listings </h1>
           <div id="slides">
             {this.state.data.map(listing => (<Listing
               listing={listing}
-              toggleLike={this.toggleLike.bind(this)}
+              toggleLike={this.toggleLike}
               lists={this.state.lists}
               lists2listings={this.state.lists2listings}
             />))}
           </div>
         </div>
-        <img src="rightArrow.png" alt="" id="right" onClick={this.slideRight.bind(this)} className={this.state.visibilityRight}/>
+        <button id="right" onClick={this.slideRight} className={this.state.visibilityRight} />
       </div>
     );
   }

@@ -28,13 +28,11 @@ class List extends React.Component {
 
   checkLiked() {
     const pairs = this.props.lists2listings.map(obj => JSON.stringify([obj.listId, obj.listingId]));
-    
-    console.log([this.props.list.id, this.props.id]);
     return pairs.includes(JSON.stringify([this.props.list.id, this.props.id]));
   }
 
   render() {
-    return(
+    return (
       <div>
         <div className="BB"> </div>
         <div className="listItem"> {this.props.list.name} </div>

@@ -22,9 +22,8 @@ class Listing extends React.Component {
       url: '/like',
       data: { data: this.props.listing.id },
       success: (res) => {
-        const liked = !!JSON.parse(res);
         this.setState({
-          liked: liked,
+          liked: !!JSON.parse(res),
         });
       },
     });
