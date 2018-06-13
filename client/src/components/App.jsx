@@ -1,85 +1,93 @@
 import React from 'react';
+import axios from 'axios';
 import $ from 'jquery';
+import Listing from './Listing.jsx';
+import styles from './styles.css';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      listings: [],
+      marginLeft: 0,
       slide: 0,
+      visibilityLeft: styles.hidden,
+      visibilityRight: styles.visible,
+      lists: [{ id: 1, name: '' }],
     };
+    this.slideLeft = this.slideLeft.bind(this);
+    this.slideRight = this.slideRight.bind(this);
   }
 
   componentDidMount() {
     this.getListings();
     this.checkCarousel();
+    this.getLists();
   }
 
   getListings() {
-    $.ajax({
-      method: 'GET',
-      url: '/list',
-      success: (res) => {
-        this.setState({
-          data: JSON.parse(res),
-        });
-      },
+    axios.get('/listing').then((res) => {
+      this.setState({
+        listings: res.data,
+      });
+    });
+  }
+
+  getLists() {
+    axios.get('/lists').then((res) => {
+      this.setState({
+        lists: res.data,
+      });
     });
   }
 
   slideRight() {
-    $('#slides').animate({ 'margin-left': '-=350px' }, 300);
     this.setState({
       slide: this.state.slide + 1,
+      marginLeft: this.state.marginLeft - 350,
     }, this.checkCarousel);
   }
 
   slideLeft() {
-    $('#slides').animate({ 'margin-left': '+=350px' }, 300);
     this.setState({
       slide: this.state.slide - 1,
+      marginLeft: this.state.marginLeft + 350,
     }, this.checkCarousel);
   }
 
   checkCarousel() {
-    console.log(this.state.slide);
-    if (this.state.slide < 1) {
-      $('#left').css("visibility", "hidden");
-    } else {
-      $('#left').css("visibility", "visible");
-    }
+    this.state.slide < 1 ? this.toggleShow('Left', styles.hidden) : this.toggleShow('Left', styles.visibile);
+    this.state.slide < 9 ? this.toggleShow('Right', styles.visible) : this.toggleShow('Right', styles.hidden);
+  }
 
-    if (this.state.slide < 9) {
-      $('#right').css("visibility", "visible");
-    } else {
-      $('#right').css("visibility", "hidden");
-    }
+  toggleShow(dir, visibility) {
+    this.setState({
+      [`visibility${dir}`]: visibility,
+    });
   }
 
   render() {
     return (
-      <div id="wrapper">
-        <img src="leftArrow.png" alt="" id="left" onClick={this.slideLeft.bind(this)} />
-        <div id="container">
+      <div id={styles.wrapper}>
+        <button id={styles.left} onClick={this.slideLeft} className={this.state.visibilityLeft}>
+        </button>
+        <div id={styles.container}>
           <h1> Similar listings </h1>
-          <div id="slides">
-            {this.state.data.map(listing => <Listing listing={listing} />)}
+          <div id={styles.slides} style={{ transition: 'margin-left .5s', marginLeft: this.state.marginLeft }}>
+            {this.state.listings.map(listing => (<Listing
+              listing={listing}
+              listings={this.state.listings}
+              lists={this.state.lists}
+              lists2listings={this.state.lists2listings}
+            />))}
           </div>
         </div>
-        <img src="rightArrow.png" alt="" id="right" onClick={this.slideRight.bind(this)}/>
+        <button id={styles.right} onClick={this.slideRight} className={this.state.visibilityRight}>
+        </button>
       </div>
     );
   }
 }
-
-const Listing = props => (
-  <div className="listing">
-    <img src={props.listing.picture} alt="" width="334" height="222" />
-    <div className="type"> {props.listing.houseType.toUpperCase()} · {props.listing.beds} BEDS</div>
-    <div className="title"> {props.listing.title} </div>
-    <div className="cost"> ${props.listing.cost} per night</div>
-    <div className="rating"> {props.listing.stars} stars · {props.listing.rating} reviews </div>
-  </div>
-);
 
 export default App;
