@@ -10,11 +10,23 @@ module.exports = {
         query: {
           presets: ['env', 'react'],
         }
-      }
+      },
+      {
+        test: /\.css$/,
+        loaders: [
+          'style-loader?sourceMap',
+          'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+        ],
+      },
+      {
+        test: /\.(gif|svg|jpg|png)$/,
+        loader: "file-loader",
+      },
     ]
   },
    output: {
     filename: 'bundle.js',
-    path: __dirname + '/client/dist'
+    path: __dirname + '/client/dist',
+    // publicPath: 'http://localhost:3009/client/src/components'
   }
 };

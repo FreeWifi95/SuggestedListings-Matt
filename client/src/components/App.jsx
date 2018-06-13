@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import $ from 'jquery';
 import Listing from './Listing.jsx';
+import styles from './styles.css';
 
 
 class App extends React.Component {
@@ -9,9 +10,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       listings: [],
+      marginLeft: 0,
       slide: 0,
-      visibilityLeft: 'hidden',
-      visibilityRight: 'visible',
+      visibilityLeft: styles.hidden,
+      visibilityRight: styles.visible,
       lists: [{ id: 1, name: '' }],
     };
     this.slideLeft = this.slideLeft.bind(this);
@@ -41,22 +43,22 @@ class App extends React.Component {
   }
 
   slideRight() {
-    $('#slides').animate({ 'margin-left': '-=350px' }, 300);
     this.setState({
       slide: this.state.slide + 1,
+      marginLeft: this.state.marginLeft - 350,
     }, this.checkCarousel);
   }
 
   slideLeft() {
-    $('#slides').animate({ 'margin-left': '+=350px' }, 300);
     this.setState({
       slide: this.state.slide - 1,
+      marginLeft: this.state.marginLeft + 350,
     }, this.checkCarousel);
   }
 
   checkCarousel() {
-    this.state.slide < 1 ? this.toggleShow('Left', 'hidden') : this.toggleShow('Left', 'visible');
-    this.state.slide < 9 ? this.toggleShow('Right', 'visible') : this.toggleShow('Right', 'hidden');
+    this.state.slide < 1 ? this.toggleShow('Left', styles.hidden) : this.toggleShow('Left', styles.visibile);
+    this.state.slide < 9 ? this.toggleShow('Right', styles.visible) : this.toggleShow('Right', styles.hidden);
   }
 
   toggleShow(dir, visibility) {
@@ -67,11 +69,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <div id="wrapper">
-        <button type="img" src="leftArrow.png" id="left" onClick={this.slideLeft} className={this.state.visibilityLeft} />
-        <div id="container">
+      <div id={styles.wrapper}>
+        <button id={styles.left} onClick={this.slideLeft} className={this.state.visibilityLeft}>
+        </button>
+        <div id={styles.container}>
           <h1> Similar listings </h1>
-          <div id="slides">
+          <div id={styles.slides} style={{ transition: 'margin-left .5s', marginLeft: this.state.marginLeft }}>
             {this.state.listings.map(listing => (<Listing
               listing={listing}
               listings={this.state.listings}
@@ -80,7 +83,8 @@ class App extends React.Component {
             />))}
           </div>
         </div>
-        <button id="right" onClick={this.slideRight} className={this.state.visibilityRight} />
+        <button id={styles.right} onClick={this.slideRight} className={this.state.visibilityRight}>
+        </button>
       </div>
     );
   }

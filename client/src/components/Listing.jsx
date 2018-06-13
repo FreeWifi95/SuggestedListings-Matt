@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Lists from './Lists.jsx';
+import styles from './styles.css';
+
 
 class Listing extends React.Component {
   constructor(props) {
@@ -51,15 +53,15 @@ class Listing extends React.Component {
 
   render() {
     return (
-      <div className="listing">
-        <div className="imageContainer" onMouseEnter={this.slideDown} onMouseLeave={this.slideUp}>
-          <div className="showLists" onClick={this.toggleLists} style={{marginTop: this.state.margin, transition: 'all .5s ease-out'}}> Add to lists </div>
+      <div className={styles.listing}>
+        <div className={styles.imageContainer} onMouseEnter={this.slideDown} onMouseLeave={this.slideUp}>
+          <div className={styles.showLists} onClick={this.toggleLists} style={{marginTop: this.state.margin, transition: 'all .5s ease-out'}}> Add to lists </div>
           <img src={this.props.listing.picture} alt="" width="334" height="222" />
         </div>
-        <div className="type"> {this.props.listing.houseType.toUpperCase()} · {this.props.listing.beds} BEDS</div>
-        <div className="title"> {this.props.listing.title} </div>
-        <div className="cost"> ${this.props.listing.cost} per night</div>
-        <div className="rating"> {this.props.listing.stars} stars · {this.props.listing.rating} reviews </div>
+        <div className={styles.type}> {this.props.listing.houseType.toUpperCase()} · {this.props.listing.beds} BEDS</div>
+        <div className={styles.title}> {this.props.listing.title} </div>
+        <div className={styles.cost}> ${this.props.listing.cost} per night</div>
+        <div className={styles.rating}> {this.props.listing.stars} stars · {this.props.listing.rating} reviews </div>
         {this.state.lists && <Lists
           lists={this.props.lists}
           listing={this.props.listing}
@@ -68,11 +70,11 @@ class Listing extends React.Component {
           lists2listings={this.props.lists2listings}
         />}
         {this.state.liked && <button
-          className="heartFull"
+          className={styles.heartFull}
           onClick={() => { this.toggleLike(this.props.listing.id); }}
         />}
         {!this.state.liked && <button
-          className="heartEmpty"
+          className={styles.heartEmpty}
           onClick={() => { this.toggleLike(this.props.listing.id); }}
         />}
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import $ from 'jquery';
+import styles from './styles.css';
 
 class List extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class List extends React.Component {
   }
 
   likeList() {
-    axios.post('/lists', { listId: this.props.list.id, listingId: this.props.id, liked: this.state.liked })
+    axios.post('/lists', { listId: this.props.list.id, listingId: this.props.listingId, liked: this.state.liked })
       .then(() => {
         this.setState({
           liked: !this.state.liked,
@@ -38,17 +38,17 @@ class List extends React.Component {
   checkLiked() {
     const pairs = this.state.lists2listings.map(obj => JSON.stringify([obj.listId, obj.listingId]));
     this.setState({
-      liked: pairs.includes(JSON.stringify([this.props.list.id, this.props.id])),
+      liked: pairs.includes(JSON.stringify([this.props.list.id, this.props.listingId])),
     });
   }
 
   render() {
     return (
       <div>
-        <div className="BB" />
-        <div className="listItem"> {this.props.list.name} </div>
-        {!this.state.liked && <button className="miniHeartsEmpty" onClick={this.likeList} />}
-        {this.state.liked && <button className="miniHeartsFull" onClick={this.likeList} />}
+        <div className={styles.BB} />
+        <div className={styles.listItem}> {this.props.list.name} </div>
+        {!this.state.liked && <button className={styles.miniHeartsEmpty} onClick={this.likeList} />}
+        {this.state.liked && <button className={styles.miniHeartsFull} onClick={this.likeList} />}
       </div>
     );
   }
