@@ -1,22 +1,21 @@
 import React from 'react';
+import axios from 'axios';
 import $ from 'jquery';
 import Listing from './Listing.jsx';
-import axios from 'axios';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      listings: [],
       slide: 0,
       visibilityLeft: 'hidden',
       visibilityRight: 'visible',
       lists: [{ id: 1, name: '' }],
-      lists2listings: [{ listId: 0, listingId: 0 }],
     };
     this.slideLeft = this.slideLeft.bind(this);
     this.slideRight = this.slideRight.bind(this);
-    this.toggleLike = this.toggleLike.bind(this);
   }
 
   componentDidMount() {
@@ -28,8 +27,8 @@ class App extends React.Component {
   getListings() {
     axios.get('/listing').then((res) => {
       this.setState({
-        data: res.data,
-      }, this.getLists2Listings);
+        listings: res.data,
+      });
     });
   }
 
@@ -39,16 +38,6 @@ class App extends React.Component {
         lists: res.data,
       });
     });
-  }
-
-  getLists2Listings() {
-    const listingIds = this.state.data.map(listing => listing.id);
-    axios.get('/lists2listings', { params: { listingIds } })
-      .then((res) => {
-        this.setState({
-          lists2listings: res.data,
-        });
-      });
   }
 
   slideRight() {
@@ -76,16 +65,6 @@ class App extends React.Component {
     });
   }
 
-  toggleLike(id) {
-    $.ajax({
-      method: 'POST',
-      url: '/like',
-      data: { data: id },
-      success: () => console.log('toggled like'),
-      err: () => console.log('there was an error'),
-    });
-  }
-
   render() {
     return (
       <div id="wrapper">
@@ -93,9 +72,9 @@ class App extends React.Component {
         <div id="container">
           <h1> Similar listings </h1>
           <div id="slides">
-            {this.state.data.map(listing => (<Listing
+            {this.state.listings.map(listing => (<Listing
               listing={listing}
-              toggleLike={this.toggleLike}
+              listings={this.state.listings}
               lists={this.state.lists}
               lists2listings={this.state.lists2listings}
             />))}

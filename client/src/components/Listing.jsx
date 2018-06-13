@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from 'jquery';
+import axios from 'axios';
 import Lists from './Lists.jsx';
 
 class Listing extends React.Component {
@@ -10,22 +10,24 @@ class Listing extends React.Component {
       lists: false,
       margin: '-35px',
     };
+    this.slideDown = this.slideDown.bind(this);
+    this.slideUp = this.slideUp.bind(this);
+    this.toggleLists = this.toggleLists.bind(this);
   }
 
   componentWillMount() {
     this.isLiked(this.props.listing.id);
   }
 
+  toggleLike(id) {
+    axios.post('/like', { data: id }).then(() => this.isLiked());
+  }
+
   isLiked() {
-    $.ajax({
-      method: 'GET',
-      url: '/like',
-      data: { data: this.props.listing.id },
-      success: (res) => {
-        this.setState({
-          liked: !!JSON.parse(res),
-        });
-      },
+    axios.get('/like', { params: { data: this.props.listing.id } }).then((res) => {
+      this.setState({
+        liked: !!res.data,
+      });
     });
   }
 
@@ -50,45 +52,38 @@ class Listing extends React.Component {
   render() {
     return (
       <div className="listing">
-        <div className="imageContainer" onMouseEnter={this.slideDown.bind(this)} onMouseLeave={this.slideUp.bind(this)}>
-          <div className="showLists" onClick={this.toggleLists.bind(this)} style={{marginTop: this.state.margin, transition: 'all .5s ease-out'}}> Add to lists </div>
+        <div className="imageContainer" onMouseEnter={this.slideDown} onMouseLeave={this.slideUp}>
+          <div className="showLists" onClick={this.toggleLists} style={{marginTop: this.state.margin, transition: 'all .5s ease-out'}}> Add to lists </div>
           <img src={this.props.listing.picture} alt="" width="334" height="222" />
         </div>
         <div className="type"> {this.props.listing.houseType.toUpperCase()} · {this.props.listing.beds} BEDS</div>
         <div className="title"> {this.props.listing.title} </div>
         <div className="cost"> ${this.props.listing.cost} per night</div>
         <div className="rating"> {this.props.listing.stars} stars · {this.props.listing.rating} reviews </div>
-        {this.state.lists && <Lists 
+        {this.state.lists && <Lists
           lists={this.props.lists}
           listing={this.props.listing}
-          toggleLists={this.toggleLists.bind(this)} 
+          listings={this.props.listings}
+          toggleLists={this.toggleLists} 
           lists2listings={this.props.lists2listings}
         />}
-        {this.state.liked && <img
-          src="heartFull.png" 
-          alt="" 
-          className="heart" 
-          width="30"
-          height="30" 
-          onClick={() => {
-            this.props.toggleLike(this.props.listing.id); 
-            this.isLiked();
-          }}
+        {this.state.liked && <button
+          className="heartFull"
+          onClick={() => { this.toggleLike(this.props.listing.id); }}
         />}
-        {!this.state.liked && <img
-          src="heartOutline.png"
-          alt=""
-          className="heart"
-          width="30"
-          height="30"
-          onClick={() => {
-            this.props.toggleLike(this.props.listing.id); 
-            this.isLiked();
-          }}
+        {!this.state.liked && <button
+          className="heartEmpty"
+          onClick={() => { this.toggleLike(this.props.listing.id); }}
         />}
       </div>
     );
   }
 }
+
+// Listing.propTypes = {
+//   listing: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+//   lists: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+//   lists2listings: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+// };
 
 export default Listing;

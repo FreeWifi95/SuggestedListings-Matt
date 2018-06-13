@@ -19,8 +19,7 @@ app.get('/lists', (req, res) => {
 });
 
 app.post('/lists', (req, res) => {
-  console.log(req.body.listId, req.body.listingId, req.body.liked);
-  if (req.body.liked === 'true') {
+  if (req.body.liked) {
     db.removeList(req.body.listId, req.body.listingId);
   } else {
     db.addList(req.body.listId, req.body.listingId);
@@ -29,7 +28,6 @@ app.post('/lists', (req, res) => {
 });
 
 app.get('/lists2listings', (req, res) => {
-  // console.log(req.query.listingIds);
   db.getLists2Listings(req.query.listingIds, (lists2listings) => { res.end(JSON.stringify(lists2listings)); });
 });
 

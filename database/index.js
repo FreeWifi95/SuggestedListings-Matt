@@ -13,12 +13,10 @@ const getLists = (callback) => {
 };
 
 const addList = function (listingId, listId) {
-  console.log('add list ran');
   connection.query('insert into lists2listings values (' + listId + ', ' + listingId + ');', (err, result) => { });
 };
 
 const removeList = function (listId, listingId) {
-  console.log('remove list ran');
   connection.query('delete from lists2listings where listId = ' + listId + ' and listingId = ' + listingId + ';', (err, result) => { });
 };
 
@@ -32,7 +30,6 @@ const toggleLike = (id) => {
 
 const getLists2Listings = (listingIds, callback) => {
   const idString = listingIds.join(', ');
-  // console.log(idString);
   connection.query('select * from lists2listings where listingId in (' + idString + ');', (err, result) => { callback(result); });
 };
 
