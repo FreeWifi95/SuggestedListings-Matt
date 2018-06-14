@@ -8,7 +8,7 @@ class Listing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      liked: true,
+      liked: this.isLiked(this.props.listing.id),
       lists: false,
       margin: '-35px',
     };
@@ -17,12 +17,12 @@ class Listing extends React.Component {
     this.toggleLists = this.toggleLists.bind(this);
   }
 
-  componentWillMount() {
-    this.isLiked(this.props.listing.id);
-  }
-
   toggleLike(id) {
-    axios.post('/like', { data: id }).then(() => this.isLiked());
+    this.setState({
+      liked: !this.state.liked,
+    });
+
+    axios.post('/like', { data: id });
   }
 
   isLiked() {
@@ -69,14 +69,19 @@ class Listing extends React.Component {
           toggleLists={this.toggleLists} 
           lists2listings={this.props.lists2listings}
         />}
-        {this.state.liked && <button
+        {/* {this.state.liked && <button
           className={styles.heartFull}
           onClick={() => { this.toggleLike(this.props.listing.id); }}
         />}
         {!this.state.liked && <button
           className={styles.heartEmpty}
           onClick={() => { this.toggleLike(this.props.listing.id); }}
-        />}
+        />} */}
+        <button onClick={() => { this.toggleLike(this.props.listing.id); }} >
+          {!this.state.liked && <img src="https://s3-us-west-1.amazonaws.com/bnbresources/heartOutline.png" alt="" className={styles.heartEmpty} />}
+          {this.state.liked && <img src="https://s3-us-west-1.amazonaws.com/bnbresources/heartFull.png
+" alt="" className={styles.heartFull} />}
+        </button>
       </div>
     );
   }

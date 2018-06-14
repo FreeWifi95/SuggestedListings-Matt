@@ -79,6 +79,11 @@ img {
   border-radius: 3px;
 }
 
+button {
+  border: none;
+  position: fixed;
+}
+
 .type {
   font-size: 12px;
   line-height: 16px;
@@ -118,22 +123,21 @@ img {
 
 .heartEmpty {
   position: relative;
-  background: url( '../../dist/heartOutline.png' );
+  /* background: url( '../../dist/heartOutline.png' ); */
   background-size: 30px;
   top: -298px;
-  left: -65px;
+  left: 280px;
   width: 30px;
   height: 30px;
-  border: none;
   cursor: pointer;
 }
 
 .heartFull {
   position: relative;
-  background: url( '../../dist/heartFull.png' );
+  /* background: url( '../../dist/heartFull.png' ); */
   background-size: 30px;
   top: -298px;
-  left: -65px;
+  left: 280px;
   width: 30px;
   height: 30px;
   border: none;
@@ -161,11 +165,11 @@ button#left, button#right {
 }
 
 #left {
-  background-image: url('../../dist/leftArrow.png');
+  /* background-image: url('../../dist/leftArrow.png'); */
 }
 
 #right {
-  background-image: url('../../dist/rightArrow.png');
+  /* background-image: url('../../dist/rightArrow.png'); */
 }
 
 .hidden {
@@ -230,7 +234,7 @@ button#left, button#right {
 }
 
 .miniHeartsEmpty {
-  background: url( '../../dist/heartOutline.png' );
+  /* background: url( '../../dist/heartOutline.png' ); */
   background-size: 30px;
   width: 30px;
   height: 30px;
@@ -242,7 +246,7 @@ button#left, button#right {
 }
 
 .miniHeartsFull {
-  background: url( '../../dist/heartFull.png' );
+  /* background: url( '../../dist/heartFull.png' ); */
   background-size: 30px;
   width: 30px;
   height: 30px;

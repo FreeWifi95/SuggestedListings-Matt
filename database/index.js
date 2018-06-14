@@ -21,7 +21,9 @@ const removeList = function (listId, listingId) {
 };
 
 const checkLiked = (id, callback) => {
-  connection.query('select liked from listings where id = ' + id + ';', (err, result) => { callback(result[0].liked); });
+  connection.query('select liked from listings where id = ' + id + ';', (err, result) => { if (err) {
+    console.log(err);
+  } else {callback(result[0].liked); }});
 };
 
 const toggleLike = (id) => {
@@ -29,6 +31,7 @@ const toggleLike = (id) => {
 };
 
 const getLists2Listings = (listingIds, callback) => {
+  // console.log(listingIds);
   const idString = listingIds.join(', ');
   connection.query('select * from lists2listings where listingId in (' + idString + ');', (err, result) => { callback(result); });
 };

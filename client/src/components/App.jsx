@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import $ from 'jquery';
 import Listing from './Listing.jsx';
 import styles from './styles.css';
 
@@ -71,6 +70,7 @@ class App extends React.Component {
     return (
       <div id={styles.wrapper}>
         <button id={styles.left} onClick={this.slideLeft} className={this.state.visibilityLeft}>
+          <img src="https://s3-us-west-1.amazonaws.com/bnbresources/leftArrow.png" alt="" className={this.state.visibilityLeft} />
         </button>
         <div id={styles.container}>
           <h1> Similar listings </h1>
@@ -84,6 +84,7 @@ class App extends React.Component {
           </div>
         </div>
         <button id={styles.right} onClick={this.slideRight} className={this.state.visibilityRight}>
+          <img src="https://s3-us-west-1.amazonaws.com/bnbresources/rightArrow.png" alt="" className={this.state.visibilityRight} />
         </button>
       </div>
     );

@@ -7,7 +7,6 @@ const port = 3009;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(express.static('client/dist'));
 
 app.get('/listing', (req, res) => {
@@ -16,15 +15,6 @@ app.get('/listing', (req, res) => {
 
 app.get('/lists', (req, res) => {
   db.getLists((lists) => { res.end(JSON.stringify(lists)); });
-});
-
-app.post('/lists', (req, res) => {
-  if (req.body.liked) {
-    db.removeList(req.body.listId, req.body.listingId);
-  } else {
-    db.addList(req.body.listId, req.body.listingId);
-  }
-  res.end();
 });
 
 app.get('/lists2listings', (req, res) => {
@@ -37,6 +27,20 @@ app.get('/like', (req, res) => {
 
 app.post('/like', (req, res) => {
   db.toggleLike(req.body.data);
+  res.end();
+});
+
+app.post('/lists', (req, res) => {
+  // console.log('listId', req.body.listId);
+  // console.log('listingId', req.body.listingId);
+  // console.log('liked', req.body.liked, typeof req.body.liked);
+  if (req.body.liked && req.body.liked !== 'false') {
+    console.log('remove ran');
+    db.removeList(req.body.listId, req.body.listingId);
+  } else {
+    console.log('add ran');
+    db.addList(req.body.listId, req.body.listingId);
+  }
   res.end();
 });
 
