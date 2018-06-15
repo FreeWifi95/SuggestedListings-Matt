@@ -81,7 +81,6 @@ img {
 
 button {
   border: none;
-  position: fixed;
 }
 
 .type {
@@ -115,33 +114,47 @@ button {
 
 .listing {
   float: left;
+  position: relative;
 }
 
 .listing + .listing {
   padding-left: 16px;
 }
 
-.heartEmpty {
-  position: relative;
-  /* background: url( '../../dist/heartOutline.png' ); */
-  background-size: 30px;
-  top: -298px;
-  left: 280px;
+.listing > button {
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute; top: 10px; right: 10px;
   width: 30px;
   height: 30px;
-  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  /* z-index: 3; */
+}
+
+.listing > button img {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  width: 30px;
+}
+
+.heartEmpty {
+  /* background: url( '../../dist/heartOutline.png' ); */
+  background-size: 30px;
 }
 
 .heartFull {
-  position: relative;
   /* background: url( '../../dist/heartFull.png' ); */
-  background-size: 30px;
-  top: -298px;
-  left: 280px;
+  /* background-size: 30px;
+  margin-top: -298px;
+  margin-left: 280px;
   width: 30px;
   height: 30px;
   border: none;
   cursor: pointer;
+  z-index: 5; */
 }
 
 #arrows {
@@ -188,7 +201,7 @@ button#left, button#right {
 
 .showLists {
   cursor: pointer;
-  position:fixed;
+  position: absolute;
   font-size: 20px;
   font-weight: 800;
   color:  white;
@@ -219,11 +232,13 @@ button#left, button#right {
 }
 
 #mini {
-  position: fixed;
-  bottom: 120px;
+  position: absolute;
+  bottom: -200px;
+  width: auto;
 }
 
 #miniContainer {
+
   float: right;
   padding-left: 18px;
 }
