@@ -26,7 +26,7 @@ class Listing extends React.Component {
   }
 
   isLiked() {
-    axios.get('/like', { params: { data: this.props.listing.id } }).then((res) => {
+    axios.get('/like/:id', { params: { data: this.props.listing.id } }).then((res) => {
       this.setState({
         liked: !!res.data,
       });

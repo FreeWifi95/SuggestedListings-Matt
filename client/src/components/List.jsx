@@ -24,7 +24,7 @@ class List extends React.Component {
     // }
 
     const listingIds = this.props.listings.map(listing => listing.id);
-    axios.get('/lists2listings', { params: { listingIds } })
+    axios.get('/lists2listings/:id', { params: { listingIds } })
       .then((res) => {
         console.log('getl2l promise ran');
         this.setState({
