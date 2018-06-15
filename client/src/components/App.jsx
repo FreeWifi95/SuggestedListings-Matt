@@ -26,7 +26,7 @@ class App extends React.Component {
   }
 
   getListings() {
-    axios.get('/listing').then((res) => {
+    axios.get('/listing/:id').then((res) => {
       this.setState({
         listings: res.data,
       });
@@ -34,7 +34,7 @@ class App extends React.Component {
   }
 
   getLists() {
-    axios.get('/lists').then((res) => {
+    axios.get('/lists/:id').then((res) => {
       this.setState({
         lists: res.data,
       });

@@ -5,23 +5,31 @@ const db = require('./../database/index.js');
 const app = express();
 const port = 3009;
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3031');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('client/dist'));
+app.use('/:id', express.static('client/dist'));
 
-app.get('/listing', (req, res) => {
+app.get('/listing/:id', (req, res) => {
   db.findListing((listing) => { res.end(JSON.stringify(listing)); });
 });
 
-app.get('/lists', (req, res) => {
+app.get('/lists/:id', (req, res) => {
   db.getLists((lists) => { res.end(JSON.stringify(lists)); });
 });
 
-app.get('/lists2listings', (req, res) => {
+app.get('/lists2listings/:id', (req, res) => {
   db.getLists2Listings(req.query.listingIds, (lists2listings) => { res.end(JSON.stringify(lists2listings)); });
 });
 
-app.get('/like', (req, res) => {
+app.get('/like/:id', (req, res) => {
   db.checkLiked(req.query.data, (liked) => { res.end(JSON.stringify(liked)); });
 });
 
