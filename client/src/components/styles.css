@@ -39,10 +39,10 @@ body {
 }
 
 .listBox {
-  position: fixed;
+  position: absolute;
   box-sizing: border-box;
   top: 60px;
-  left: 450px;
+  left: 32%;
   height: 660px;
   width: 568px;
   padding: 40px;
@@ -193,12 +193,6 @@ button#left, button#right {
   visibility: visible;
 }
 
-.list {
-  position: fixed;
-  font-size: 20px;
-  z-index: 3;
-}
-
 .showLists {
   cursor: pointer;
   position: absolute;
@@ -221,8 +215,8 @@ button#left, button#right {
   border-bottom-color: rgb(219, 219, 219);
   border-bottom-style: solid;
   border-bottom-width: 1px;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-top: 25px;
   width: 450px;
 }
 
@@ -231,43 +225,45 @@ button#left, button#right {
   position: relative;
 }
 
+.list {
+  position: fixed;
+  font-size: 20px;
+  z-index: 3;
+}
+
 #mini {
   position: absolute;
   bottom: -200px;
-  width: auto;
 }
 
 #miniContainer {
-
   float: right;
   padding-left: 18px;
 }
 
-.miniText {
-  margin-top: 12px;
-  margin-bottom: 12px;
+#miniText {
+  position: relative;
+  top: 7px;
+  /* margin-bottom: 32px; */
+}
+
+.miniList {
+  position: absolute;
+  right: 0px; 
+  cursor: fixed;
 }
 
 .miniHeartsEmpty {
-  /* background: url( '../../dist/heartOutline.png' ); */
   background-size: 30px;
   width: 30px;
   height: 30px;
-  border: none;
-  cursor: fixed;
-  position: fixed;
-  margin-left: 400px;
-  margin-top: -23px;
+  margin-top: -40px;
+
 }
 
 .miniHeartsFull {
-  /* background: url( '../../dist/heartFull.png' ); */
   background-size: 30px;
   width: 30px;
   height: 30px;
-  border: none;
-  cursor: fixed;
-  position: fixed;
-  margin-left: 400px;
-  margin-top: -25px;
+  margin-top: -40px;
 }

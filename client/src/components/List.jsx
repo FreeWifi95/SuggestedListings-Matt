@@ -57,10 +57,10 @@ class List extends React.Component {
     return (
       <div>
         <div className={styles.BB} />
-        <div className={styles.listItem}> {this.props.list.name} </div>
+        <div className={styles.listItem} id={styles.miniText}> {this.props.list.name} </div>
         {/* {!this.state.liked && <button className={style.miniHeartsEmpty} onClick={this.likeList} />}
         {this.state.liked && <button className={style.miniHeartsFull} onClick={this.likeList} />} */}
-        <button onClick={this.likeList} >
+        <button onClick={this.likeList} className={styles.miniList}>
           {!this.state.liked && <img src="https://s3-us-west-1.amazonaws.com/bnbresources/heartOutline.png" alt="" className={styles.miniHeartsEmpty} />}
           {this.state.liked && <img src="https://s3-us-west-1.amazonaws.com/bnbresources/heartFull.png" alt="" className={styles.miniHeartsFull} />}
         </button>
