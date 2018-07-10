@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const db = require('./../database/index.js');
 
 const app = express();
-const port = 3009;
+const port = process.env.PORT || 3009;
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3031');

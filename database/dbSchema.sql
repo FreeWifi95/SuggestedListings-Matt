@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS similar;
+DROP DATABASE IF EXISTS similarDB;
 
-CREATE DATABASE similar;
+CREATE DATABASE similarDB;
 
-USE similar;
+USE similarDB;
 
 CREATE TABLE listings (
   id int NOT NULL AUTO_INCREMENT,

@@ -74,7 +74,7 @@ class App extends React.Component {
         </button>
         <div id={styles.container}>
           <h1> Similar listings </h1>
-          <div id={styles.slides} style={{ transition: 'margin-left .5s', marginLeft: this.state.marginLeft }}>
+          <div id={styles.slides} style={{ transition: 'margin-left .5s', transitionTimingFunction: 'ease-in-out', marginLeft: this.state.marginLeft }}>
             {this.state.listings.map(listing => (<Listing
               listing={listing}
               listings={this.state.listings}

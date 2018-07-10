@@ -6,8 +6,6 @@ body {
 
 #wrapper {
   position: relative;
-  padding-top: 180px;
-  padding-left: 100px;
   width: 1132px;
   margin: auto;
 }
@@ -234,6 +232,7 @@ button#left, button#right {
 #mini {
   position: absolute;
   bottom: -200px;
+  width: 505px;
 }
 
 #miniContainer {

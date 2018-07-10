@@ -7,29 +7,26 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "nodemon server/index.js",
-    "react-dev": "webpack -d --watch",
-    "dbInit": "node initDatabase.js"
+    "start": "node server/index.js",
+    "react-dev": "webpack -d --watch"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "express": "^4.15.4",
-    "file-loader": "^1.1.11",
     "jquery": "^3.2.1",
-    "mongoose": "^4.11.6",
     "mysql": "^2.4.2",
     "react": "^15.6.1",
     "react-css-modules": "^4.7.3",
     "react-dom": "^15.6.1",
     "underscore": "^1.8.3",
-    "url-loader": "^1.0.1",
     "webpack": "^2.7.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.11",
@@ -38,11 +35,8 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
-    "image-webpack-loader": "^4.3.1",
-    "install": "^0.11.0",
-    "npm": "^6.1.0",
     "style-loader": "^0.21.0",
     "webpack": "^2.7.0",
-    "webpack-cli": "^2.1.4"
+    "webpack-cli": "^2.1.5"
   }
 }
